@@ -76,3 +76,4 @@ function iniciarSimulador() {
   console.log("\n=== SIMULACIONES REALIZADAS ===");
   console.table(simulaciones);
 }
+
