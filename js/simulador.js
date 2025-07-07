@@ -1,4 +1,3 @@
-
 const FRIGORIAS_POR_METRO = 100;
 const FRIGORIAS_POR_PERSONA = 100;
 const EXTRA_SOL = 500;
@@ -24,7 +23,7 @@ function obtenerDatosUsuario() {
   console.log("El ambiente recibe luz solar directa durante el día?");
   console.log("1: Sí");
   console.log("2: No");
-  let solInput = prompt("El ambiente recibe luz solar directa durante el día? Ingrese 1 para Sí o 2 para No:");
+  let solInput = prompt("¿El ambiente recibe luz solar directa durante el día?\n Ingrese 1 para SI\n Ingrese 2 para NO:");
   while (solInput !== "1" && solInput !== "2") {
     console.log("Opción inválida.");
     solInput = prompt("Ingrese 1 para Sí o 2 para No:");
@@ -74,38 +73,42 @@ function iniciarSimulador() {
   }
 
   console.log("\n=== SIMULACIONES REALIZADAS ===");
+  console.table(simulaciones);
   mostrarTablaHTML(simulaciones);
 }
+
 function mostrarTablaHTML(simulaciones) {
   const divResultados = document.getElementById("resultados");
-  divResultados.innerHTML = ""; 
+  divResultados.innerHTML = "";
 
   if (simulaciones.length === 0) return;
 
   const tabla = document.createElement("table");
-  tabla.border = "1";
-  tabla.style.borderCollapse = "collapse";
-  tabla.style.marginTop = "20px";
+  tabla.className = "tabla";
 
-  
   const encabezado = tabla.insertRow();
   ["#", "Metros", "Personas", "Sol directo", "Frigorías"].forEach(texto => {
     const th = document.createElement("th");
     th.textContent = texto;
-    th.style.padding = "6px";
     encabezado.appendChild(th);
   });
 
- 
   simulaciones.forEach((sim, index) => {
     const fila = tabla.insertRow();
-    fila.insertCell().textContent = index + 1;
-    fila.insertCell().textContent = sim.metros;
-    fila.insertCell().textContent = sim.personas;
-    fila.insertCell().textContent = sim.sol ? "Sí" : "No";
-    fila.insertCell().textContent = sim.frigorias + " fg";
+    const datos = [
+      index + 1,
+      sim.metros,
+      sim.personas,
+      sim.sol ? "Sí" : "No",
+      sim.frigorias + " fg"
+    ];
+
+    datos.forEach(dato => {
+      const td = document.createElement("td");
+      td.textContent = dato;
+      fila.appendChild(td);
+    });
   });
 
   divResultados.appendChild(tabla);
 }
-
