@@ -1,39 +1,75 @@
- body {
-      background: linear-gradient(135deg, #f0f4ff, #e6f0fa);
-      min-height: 100vh;
-    }
+* {
+  box-sizing: border-box;
+}
 
-    .main-card {
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-      padding: 30px;
-      max-width: 700px;
-      margin: auto;
-    }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f0f4f8;
+  color: #333;
+}
 
-    .tabla {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-      font-family: Arial, sans-serif;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
+.container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
+}
 
-    .tabla th {
-      background-color: #007BFF;
-      color: white;
-      padding: 10px;
-      text-align: center;
-      border: 1px solid #ccc;
-    }
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
 
-    .tabla td {
-      padding: 10px;
-      text-align: center;
-      border: 1px solid #ccc;
-    }
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 
-    .tabla tr:nth-child(even) {
-      background-color: #f9f9f9;
-    }
+input, select, button {
+  padding: 0.7rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#resultados {
+  margin-top: 2rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+@media (max-width: 500px) {
+  .container {
+    padding: 1rem;
+  }
+
+  th, td {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+}

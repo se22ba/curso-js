@@ -1,114 +1,75 @@
 const FRIGORIAS_POR_METRO = 100;
 const FRIGORIAS_POR_PERSONA = 100;
 const EXTRA_SOL = 500;
+const form = document.getElementById("formSimulador");
+const divResultados = document.getElementById("resultados");
 
-let simulaciones = [];
-
-function obtenerDatosUsuario() {
-  console.clear();
-  console.log("***SIMULADOR DE FRIGORÍAS***");
-
-  let metros = parseFloat(prompt("Ingrese los metros cuadrados del ambiente:"));
-  while (isNaN(metros) || metros <= 0) {
-    console.log("Valor inválido para metros cuadrados.");
-    metros = parseFloat(prompt("Ingrese un número mayor a 0 para los metros cuadrados:"));
+class Simulacion {
+  constructor(metros, personas, sol) {
+    this.metros = metros;
+    this.personas = personas;
+    this.sol = sol;
+    this.frigorias = this.calcularFrigorias();
   }
 
-  let personas = parseInt(prompt("Ingrese la cantidad de personas que usan el ambiente:"));
-  while (isNaN(personas) || personas <= 0) {
-    console.log("Valor inválido para cantidad de personas.");
-    personas = parseInt(prompt("Ingrese una cantidad válida de personas:"));
+  calcularFrigorias() {
+    let base = this.metros * FRIGORIAS_POR_METRO;
+    let extra = this.personas * FRIGORIAS_POR_PERSONA;
+    let total = base + extra;
+    if (this.sol) total += EXTRA_SOL;
+    return total;
   }
-
-  console.log("El ambiente recibe luz solar directa durante el día?");
-  console.log("1: Sí");
-  console.log("2: No");
-  let solInput = prompt("¿El ambiente recibe luz solar directa durante el día?\n Ingrese 1 para SI\n Ingrese 2 para NO:");
-  while (solInput !== "1" && solInput !== "2") {
-    console.log("Opción inválida.");
-    solInput = prompt("Ingrese 1 para Sí o 2 para No:");
-  }
-
-  let sol = solInput === "1";
-
-  return { metros, personas, sol };
 }
 
-function calcularFrigorias({ metros, personas, sol }) {
-  let frigoriasBase = metros * FRIGORIAS_POR_METRO;
-  let frigoriasExtra = personas * FRIGORIAS_POR_PERSONA;
-  let total = frigoriasBase + frigoriasExtra;
 
-  if (sol) {
-    total += EXTRA_SOL;
-  }
+let simulaciones = JSON.parse(localStorage.getItem("simulaciones")) || [];
 
-  return total;
-}
+const guardarEnStorage = (lista) => {
+  localStorage.setItem("simulaciones", JSON.stringify(lista));
+};
 
-function mostrarResultado(datos, frigorias) {
-  console.log("\n=== RESULTADO DEL CÁLCULO ===");
-  console.log("Metros cuadrados:", datos.metros);
-  console.log("Personas:", datos.personas);
-  console.log("Luz solar directa:", datos.sol ? "Sí" : "No");
-  console.log("Frigorías estimadas necesarias:", frigorias + " fg");
-}
+const renderizarTabla = (data) => {
+  divResultados.innerHTML = "<h2>Resultados</h2>";
 
-function iniciarSimulador() {
-  let continuar = true;
-
-  while (continuar) {
-    const datos = obtenerDatosUsuario();
-    const frigorias = calcularFrigorias(datos);
-    mostrarResultado(datos, frigorias);
-    simulaciones.push({ ...datos, frigorias });
-
-    let continuarInput = prompt("¿Desea realizar otra simulación? (s/n):").toLowerCase();
-    while (continuarInput !== "s" && continuarInput !== "n") {
-      console.log("Ingrese 's' para sí o 'n' para no.");
-      continuarInput = prompt("¿Desea realizar otra simulación? (s/n):").toLowerCase();
-    }
-
-    continuar = continuarInput === "s";
-  }
-
-  console.log("\n=== SIMULACIONES REALIZADAS ===");
-  console.table(simulaciones);
-  mostrarTablaHTML(simulaciones);
-}
-
-function mostrarTablaHTML(simulaciones) {
-  const divResultados = document.getElementById("resultados");
-  divResultados.innerHTML = "";
-
-  if (simulaciones.length === 0) return;
+  if (data.length === 0) return;
 
   const tabla = document.createElement("table");
-  tabla.className = "tabla";
-
-  const encabezado = tabla.insertRow();
-  ["#", "Metros", "Personas", "Sol directo", "Frigorías"].forEach(texto => {
+  const header = tabla.insertRow();
+  ["#", "Metros", "Personas", "Sol directo", "Frigorías"].forEach(t => {
     const th = document.createElement("th");
-    th.textContent = texto;
-    encabezado.appendChild(th);
+    th.textContent = t;
+    header.appendChild(th);
   });
 
-  simulaciones.forEach((sim, index) => {
-    const fila = tabla.insertRow();
-    const datos = [
-      index + 1,
-      sim.metros,
-      sim.personas,
-      sim.sol ? "Sí" : "No",
-      sim.frigorias + " fg"
-    ];
-
-    datos.forEach(dato => {
-      const td = document.createElement("td");
-      td.textContent = dato;
-      fila.appendChild(td);
-    });
+  data.forEach((sim, index) => {
+    const row = tabla.insertRow();
+    [index + 1, sim.metros, sim.personas, sim.sol ? "Sí" : "No", sim.frigorias + " fg"]
+      .forEach(valor => {
+        const td = document.createElement("td");
+        td.textContent = valor;
+        row.appendChild(td);
+      });
   });
 
   divResultados.appendChild(tabla);
-}
+};
+
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const metros = parseFloat(form.metros.value);
+  const personas = parseInt(form.personas.value);
+  const sol = form.sol.value === "true";
+
+  if (!metros || !personas || isNaN(metros) || isNaN(personas)) return;
+
+  const nuevaSimulacion = new Simulacion(metros, personas, sol);
+  simulaciones.push(nuevaSimulacion);
+  guardarEnStorage(simulaciones);
+  renderizarTabla(simulaciones);
+
+  form.reset();
+});
+
+renderizarTabla(simulaciones);
