@@ -1,0 +1,44 @@
+[
+  {
+    "marca": "Midea",
+    "modelo": "BOCA-2250",
+    "capacidad_fg": 2250,
+    "consumo_w": 650,
+    "tipo": "Split Inverter"
+  },
+  {
+    "marca": "Messi",
+    "modelo": "ARG-3000",
+    "capacidad_fg": 3000,
+    "consumo_w": 820,
+    "tipo": "Split Inverter"
+  },
+  {
+    "marca": "Riquelme",
+    "modelo": "CABJ-3500",
+    "capacidad_fg": 3500,
+    "consumo_w": 980,
+    "tipo": "Ventana"
+  },
+  {
+    "marca": "Deja",
+    "modelo": "BOL-4500",
+    "capacidad_fg": 4500,
+    "consumo_w": 1200,
+    "tipo": "Split Inverter"
+  },
+  {
+    "marca": "LA",
+    "modelo": "GATO-5500",
+    "capacidad_fg": 5500,
+    "consumo_w": 1450,
+    "tipo": "Split Inverter"
+  },
+  {
+    "marca": "Presidencia",
+    "modelo": "PELELE-6500",
+    "capacidad_fg": 6500,
+    "consumo_w": 1700,
+    "tipo": "Cassette"
+  }
+]
