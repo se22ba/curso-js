@@ -3,13 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Simulador de Frigorías</title>
+  <title>SHL - Simulador Frigorias</title>
   <link rel="stylesheet" href="./css/styles.css" />
 </head>
 <body>
   <main class="container">
-    <h1>Simulador de Frigorías</h1>
-
+    <section class="cabecera">
+      <section class="texto">
+        <h1 >Simulador de Frigorías</h1>
+      </section>
+      <section class="imagen">
+        <img src="./images/logo.jpg" alt="">
+      </section>
+    </section>
     <form id="formSimulador">
       <label for="metros">Metros cuadrados:</label>
       <input type="number" id="metros" name="metros" min="1" required />
@@ -36,7 +42,7 @@
 
   </main>
 
-  <!-- Biblioteca externa: SweetAlert2 para reemplazar alert/prompt/confirm -->
+ 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="./js/simulador.js"></script>
 

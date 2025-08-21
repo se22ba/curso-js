@@ -22,7 +22,29 @@ h1 {
   text-align: center;
   margin-bottom: 1.5rem;
 }
+.cabecera {
+  display: flex;
+  align-items: center;   
+  justify-content: flex-start;
+  gap: 1rem;             
+  padding: 1rem;
+}
 
+.cabecera .imagen img {
+  width: 80px;           
+  height: auto;
+  display: block;
+}
+
+.cabecera .texto h1 {
+  margin: 0;
+  text-align: left;      
+  font-size: 1.8rem;
+}
+
+img{
+  width: 50px;
+}
 form {
   display: flex;
   flex-direction: column;
@@ -66,6 +88,16 @@ th, td {
 @media (max-width: 500px) {
   .container {
     padding: 1rem;
+    
+  }
+  
+  .cabecera {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cabecera .texto h1 {
+    text-align: center;
   }
 
   th, td {
