@@ -37,14 +37,14 @@ input, select, button {
 }
 
 button {
-  background-color: #007bff;
+  background-color: #00c8f8;
   color: white;
   cursor: pointer;
   transition: 0.3s;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: rgb(5, 144, 224);
 }
 
 #resultados {
